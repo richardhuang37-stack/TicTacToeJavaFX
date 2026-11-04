@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 
  * A player that chooses randomly from the currently available cells. 
  */
 public class CpuPlayer extends Player {
+    private static final AtomicInteger DEFAULT_NAME_COUNTER = new AtomicInteger();
+
     private final Random random;
 
     /**
@@ -38,6 +41,11 @@ public class CpuPlayer extends Player {
     public CpuPlayer(char marker, Random random) {
         super(marker);
         this.random = Objects.requireNonNull(random, "random");
+        setName("CPU #" + DEFAULT_NAME_COUNTER.incrementAndGet());
+    }
+
+    static void resetDefaultNameCounter() {
+        DEFAULT_NAME_COUNTER.set(0);
     }
     
 

@@ -7,10 +7,74 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.Scanner;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /** Unit tests for human and CPU player move behavior. */
 class PlayerTest {
+    @BeforeEach
+    void resetDefaultPlayerNameCounters() {
+        HumanPlayer.resetDefaultNameCounter();
+        CpuPlayer.resetDefaultNameCounter();
+    }
+
+    /** Verifies the default names assigned to human and CPU players. */
+    @Test
+    void playersHaveDefaultNames() {
+        HumanPlayer human = new HumanPlayer('X', new Scanner(""));
+        CpuPlayer cpu = new CpuPlayer('O', new Random(7));
+
+        assertEquals("Player #1", human.getName());
+        assertEquals("CPU #1", cpu.getName());
+    }
+
+    /** Verifies successive human players receive distinct default names. */
+    @Test
+    void humanPlayersHaveSequentialDefaultNames() {
+        HumanPlayer first = new HumanPlayer('X', new Scanner(""));
+        HumanPlayer second = new HumanPlayer('O', new Scanner(""));
+
+        assertEquals("Player #1", first.getName());
+        assertEquals("Player #2", second.getName());
+    }
+
+    /** Verifies successive CPU players receive distinct default names. */
+    @Test
+    void cpuPlayersHaveSequentialDefaultNames() {
+        CpuPlayer first = new CpuPlayer('X', new Random(1));
+        CpuPlayer second = new CpuPlayer('O', new Random(2));
+
+        assertEquals("CPU #1", first.getName());
+        assertEquals("CPU #2", second.getName());
+    }
+
+    /** Verifies both player types can be assigned and return a name. */
+    @Test
+    void playersCanSetAndGetNames() {
+        HumanPlayer human = new HumanPlayer('X', new Scanner(""));
+        CpuPlayer cpu = new CpuPlayer('O', new Random(7));
+
+        human.setName("Alice");
+        cpu.setName("Computer");
+
+        assertEquals("Alice", human.getName());
+        assertEquals("Computer", cpu.getName());
+    }
+
+    /** Verifies null, empty, and whitespace-only names are rejected. */
+    @Test
+    void playersRejectNullOrBlankNames() {
+        HumanPlayer human = new HumanPlayer('X', new Scanner(""));
+        CpuPlayer cpu = new CpuPlayer('O', new Random(7));
+
+        assertThrows(IllegalArgumentException.class, () -> human.setName(null));
+        assertThrows(IllegalArgumentException.class, () -> human.setName(""));
+        assertThrows(IllegalArgumentException.class, () -> human.setName(" \t "));
+        assertThrows(IllegalArgumentException.class, () -> cpu.setName(null));
+        assertThrows(IllegalArgumentException.class, () -> cpu.setName(""));
+        assertThrows(IllegalArgumentException.class, () -> cpu.setName(" \t "));
+    }
+
     /** Verifies a human can place a marker at valid coordinates. */
     @Test
     void humanCanPlaceAMoveFromSelectedCoordinates() {
