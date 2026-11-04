@@ -21,6 +21,26 @@ class PlayerTest {
         assertEquals("CPU #1", cpu.getName());
     }
 
+    /** Verifies successive human players receive distinct default names. */
+    @Test
+    void humanPlayersHaveSequentialDefaultNames() {
+        HumanPlayer first = new HumanPlayer('X', new Scanner(""));
+        HumanPlayer second = new HumanPlayer('O', new Scanner(""));
+
+        assertEquals("Player #1", first.getName());
+        assertEquals("Player #2", second.getName());
+    }
+
+    /** Verifies successive CPU players receive distinct default names. */
+    @Test
+    void cpuPlayersHaveSequentialDefaultNames() {
+        CpuPlayer first = new CpuPlayer('X', new Random(1));
+        CpuPlayer second = new CpuPlayer('O', new Random(2));
+
+        assertEquals("CPU #1", first.getName());
+        assertEquals("CPU #2", second.getName());
+    }
+
     /** Verifies both player types can be assigned and return a name. */
     @Test
     void playersCanSetAndGetNames() {
