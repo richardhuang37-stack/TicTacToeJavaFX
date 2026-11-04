@@ -26,6 +26,12 @@
     -fx-padding: 2px 0 8px 0;
 }
 
+.score {
+    -fx-text-fill: #83d6c5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
 .board {
     -fx-padding: 22px;
     -fx-background-color: rgba(255, 255, 255, 0.055);

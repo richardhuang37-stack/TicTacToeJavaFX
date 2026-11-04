@@ -21,6 +21,10 @@ public class Main extends Application {
     private final List<Button> cells = new ArrayList<>();
 
     private Label status;
+    private Label score;
+    private int humanWins;
+    private int cpuWins;
+    private int draws;
     private boolean gameOver;
 
     /** Creates and displays the game window. */
@@ -40,6 +44,9 @@ public class Main extends Application {
         status = new Label();
         status.getStyleClass().add("status");
 
+        score = new Label();
+        score.getStyleClass().add("score");
+
         GridPane grid = createBoard();
         grid.getStyleClass().add("board");
 
@@ -50,7 +57,8 @@ public class Main extends Application {
         restart.getStyleClass().add("restart-button");
         restart.setOnAction(event -> restartGame());
 
-        root.getChildren().addAll(eyebrow, title, status, grid, hint, restart);
+        root.getChildren().addAll(eyebrow, title, status, score, grid, hint, restart);
+        updateScore();
         updateBoard();
 
         Scene scene = new Scene(root);
@@ -104,14 +112,28 @@ public class Main extends Application {
         if (board.checkWin()) {
             gameOver = true;
             status.setText(player.getName() + " wins!");
+            if (player == human) {
+                humanWins++;
+            } else {
+                cpuWins++;
+            }
+            updateScore();
             return true;
         }
         if (board.isFull()) {
             gameOver = true;
+            draws++;
             status.setText("It's a draw!");
+            updateScore();
             return true;
         }
         return false;
+    }
+
+    private void updateScore() {
+        score.setText(human.getName() + ": " + humanWins
+                + "     " + cpu.getName() + ": " + cpuWins
+                + "     Draws: " + draws);
     }
 
     private void updateBoard() {
