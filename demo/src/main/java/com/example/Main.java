@@ -30,10 +30,10 @@ public class Main extends Application {
     /** Creates and displays the game window. */
     @Override
     public void start(Stage stage) {
-        VBox root = new VBox(20);
+        VBox root = new VBox(14);
         root.getStyleClass().addAll("root", "content");
         root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(36));
+        root.setPadding(new Insets(24));
 
         Label eyebrow = new Label("HUMAN VS CPU");
         eyebrow.getStyleClass().add("eyebrow");
@@ -72,8 +72,8 @@ public class Main extends Application {
     private GridPane createBoard() {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        grid.setHgap(12);
-        grid.setVgap(12);
+        grid.setHgap(8);
+        grid.setVgap(8);
 
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
