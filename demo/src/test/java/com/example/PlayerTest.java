@@ -7,10 +7,17 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.Scanner;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /** Unit tests for human and CPU player move behavior. */
 class PlayerTest {
+    @BeforeEach
+    void resetDefaultPlayerNameCounters() {
+        HumanPlayer.resetDefaultNameCounter();
+        CpuPlayer.resetDefaultNameCounter();
+    }
+
     /** Verifies the default names assigned to human and CPU players. */
     @Test
     void playersHaveDefaultNames() {
